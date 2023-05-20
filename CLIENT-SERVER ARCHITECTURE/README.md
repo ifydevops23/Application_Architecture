@@ -80,5 +80,5 @@ Server B name - `mysql client`
 
 - You may create tables also from the client.
  
-
+  ![2_query_database_from_client_create](https://github.com/ifydevops23/Application_Architecture/assets/126971054/d0e95ebf-254f-41d4-b713-39005b7d68b3)
 
