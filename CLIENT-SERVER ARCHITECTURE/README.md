@@ -1,39 +1,53 @@
-CLIENT-SERVER ARCHITECTURE WITH MYSQL
-Understanding Client-Server Architecture
-As you proceed with your journey into the world of IT, you will begin to realise that certain concepts apply to many other areas. One of such concepts is – Client-Server architecture.
+# CLIENT-SERVER ARCHITECTURE WITH MYSQL
+
 Client-Server refers to an architecture in which two or more computers are connected together over a network to send and receive requests between one another.
 In their communication, each machine has its own role: the machine sending requests is usually referred as "Client" and the machine responding (serving) is called "Server".
 A simple diagram of Web Client-Server architecture is presented below:
 
-In the example above, a machine that is trying to access a Web site using a Web browser or simply ‘curl’ command is a client and it sends HTTP requests to a Web server (Apache, Nginx, IIS or any other) over the Internet.
-If we extend this concept further and add a Database Server to our architecture, we can get this picture:
-
-In this case, our Web Server has a role of a "Client" that connects and reads/writes to/from a Database (DB) Server (MySQL, MongoDB, Oracle, SQL Server or any other), and the communication between them happens over a Local Network (it can also be an Internet connection, but it is a common practice to place Web Server and DB Server close to each other in a local network).
-The setup on the diagram above is a typical generic Web Stack architecture that you have already implemented in previous projects (LAMP, LEMP, MEAN, MERN), this architecture can be implemented with many other technologies – various Web and DB servers, from small Single-page applications SPA to large and complex portals.
-A real example of a LAMP website
-In Project 1 you implemented a LAMP STACK website, let us take an example of a commercially deployed LAMP website – www.propitixhomes.com.
-This LAMP website server(s) can be located anywhere in the world and you can reach it also from any part of the globe over global network – Interthe net.
-Assuming that you go on your browser, and typed in there www.propitixhomes.com. It means that your browser is considered the "Client". Essentially, it is sending requests to the remote server, and in turn, would be expecting some kind of response from the remote server.
+![client-server-architecture](https://github.com/ifydevops23/Application_Architecture/assets/126971054/b8cc5f7f-51e6-4e6c-95a7-bafe7c47cc5c)
+Assuming that you go on your browser, and typed in there [facebook.com.] It means that your browser is considered the "Client". Essentially, it is sending requests to the remote server, and in turn, would be expecting some kind of response from the remote server.
 Let’s take a very quick example and see Client-Server communicatation in action.
-Open up your Ubuntu or Windows terminal and run the curl command:
- curl -Iv www.propitixhomes.com
-Note: If your Ubuntu does not have ‘curl’, you can install it by running sudo apt install curl
-In this example, your terminal will be the client, while www.propitixhomes.com will be the server.
-See the response from the remote server in the below output. You can also see that the requests from the URL are being served by a computer with an IP address 160.153.133.153 on port 80. More on IP addresses and ports when we get to Networking related projects
 
-Another simple way to get a server’s IP address is to use a simple diagnostic tool like ‘ping’, it will also show round-trip time – time for packets to go to and back from the server, this tool uses ICMP protocol.
-Side Self Study
-Read about ping and traceroute network diagnostic utilities. Be able to make sense of the results of using these tools.
-Refresh your knowledge of basic SQL commands, and be able to perform simple SHOW, CREATE, DROP, SELECT and INSERT SQL queries.
+Open up your Ubuntu or Windows terminal and run the curl command: <br>
+`curl -Iv facebook.com`
 
-IMPLEMENT A CLIENT SERVER ARCHITECTURE USING MYSQL DATABASE MANAGEMENT SYSTEM (DBMS).
-TASK – Implement a Client-Server Architecture using MySQL Database Management System (DBMS).
-To demonstrate a basic client-server using MySQL Relational Database Management System (RDBMS), follow the below instructions
+In this example, your terminal will be the client, while [facebook.com] will be the server.
+See the response from the remote server in the below output. You can also see that the requests from the URL are being served by a computer with an IP address on port 80.
+
+![1_curl_from_facebook](https://github.com/ifydevops23/Application_Architecture/assets/126971054/b431e8b9-7eb2-4601-a276-9fb3c6060d9f)
+Another simple way to get a server’s IP address is to use a simple diagnostic tool like ‘ping’. 
+
+## IMPLEMENT A CLIENT SERVER ARCHITECTURE USING MYSQL DATABASE MANAGEMENT SYSTEM (DBMS).
+
+To demonstrate a basic client-server using MySQL Relational Database Management System (RDBMS),
+
 Create and configure two Linux-based virtual servers (EC2 instances in AWS).
-Server A name - `mysql server`
+Server A name - `mysql server` <br>
 Server B name - `mysql client`
-On mysql server Linux Server install MySQL Server software.
-Interesting fact: MySQL is an open-source relational database management system. Its name is a combination of "My", the name of co-founder Michael Widenius’s daughter, and "SQL", the abbreviation for Structured Query Language.
+
+![1_instances_created](https://github.com/ifydevops23/Application_Architecture/assets/126971054/245d706d-e6ec-4657-b5cc-0e555234a353)
+
+- Install MySQL Server software on the VM called "mysql server".
+
+![1_install_mysql_server](https://github.com/ifydevops23/Application_Architecture/assets/126971054/8e974d0c-9099-4c22-acbb-ed30be2ece91)
+- Log in by typing `sudo mysql`
+- Add Password to 'root' user of mysql server.
+
+![1_alter_password_mysql](https://github.com/ifydevops23/Application_Architecture/assets/126971054/6c368084-5e23-4469-b69a-d75b4957cfd7)
+- Logout by typing `exit`
+- Log back in by typing `mysql -p`
+- Create database 'my_database' CREATE DATABASE my_database;
+- Create new user other than 'root' CREATE USER my_db_user;
+
+![db_user_and_db](https://github.com/ifydevops23/Application_Architecture/assets/126971054/a5d4855a-3251-44ee-93b0-f2ce19904d19)
+- Grant access to 'my_db_user' by typing `GRANT ALL ON my_database.* TO 'my_db_user'@'%';`
+- Exit the mysql shell `mysql -u example_user -p`
+- Login using new user to ascertain priviledges and permisiions <br>
+  `mysql -u my_db_user -p`
+- Query Database by typing `SHOW DATABASES;` 
+- Exit shell `exit`
+
+
 On mysql client Linux Server install MySQL Client software.
 By default, both of your EC2 virtual servers are located in the same local virtual network, so they can communicate to each other using local IP addresses. Use mysql server's local IP address to connect from mysql client. MySQL server uses TCP port 3306 by default, so you will have to open it by creating a new entry in ‘Inbound rules’ in ‘mysql server’ Security Groups. For extra security, do not allow all IP addresses to reach your ‘mysql server’ – allow access only to the specific local IP address of your ‘mysql client’.
 You might need to configure MySQL server to allow connections from remote hosts.
