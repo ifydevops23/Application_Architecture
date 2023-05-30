@@ -1,10 +1,13 @@
-LAUNCH AN EC2 INSTANCE THAT WILL SERVE AS “WEB SERVER”.
-Step 1 — Prepare a Web Server
-Launch an EC2 instance that will serve as "Web Server". Create 3 volumes in the same AZ as your Web Server EC2, each of 10 GiB.
-Open up the Linux terminal to begin configurationUse `lsblk` command to inspect what block devices are attached to the server.Notice names of your newly created devices. All devices in Linux reside in /dev/ directory.
+## LAUNCH AN EC2 INSTANCE THAT WILL SERVE AS “WEB SERVER”.<br>
+*Step 1 — Prepare a Web Server
+Launch an EC2 instance that will serve as "Web Server"*. 
+Create 3 volumes in the same AZ as your Web Server EC2, each of 10 GiB.<br>
+Open up the Linux terminal to begin configurationUse `lsblk` command to inspect what block devices are attached to the server.<br>
+Notice names of your newly created devices. All devices in Linux reside in /dev/ directory.<br>
 Inspect it with `ls /dev/` and make sure you see all 3 newly created block devices there – their names will likely be xvdf, xvdh, xvdg.<br>
-Use `df -h` command to see all mounts and free space on your server.Use gdisk utility to create a single partition on each of the 3 disks `sudo gdisk /dev/xvdf`
-Now, your changes has been configured succesfuly, exit out of the gdisk console and do the same for the remaining disks.Use `lsblk` utility to view the newly configured partition on each of the 3 disks. <br>
+Use `df -h` command to see all mounts and free space on your server.Use gdisk utility to create a single partition on each of the 3 disks `sudo gdisk /dev/xvdf`<br>
+Now, your changes has been configured succesfuly, exit out of the gdisk console and do the same for the remaining disks.<br>
+Use `lsblk` utility to view the newly configured partition on each of the 3 disks. <br>
 Install lvm2 package using `sudo yum install lvm2`. <br>
 Run `sudo lvmdiskscan` command to check for available partitions.<br>
 Use `pvcreate` utility to mark each of 3 disks as physical volumes (PVs) to be used by LVM`sudo pvcreate /dev/xvdf1``sudo pvcreate /dev/xvdg1``sudo pvcreate /dev/xvdh1`<br>
@@ -34,7 +37,7 @@ Update /etc/fstab in this format using your own UUID and rememeber to remove the
 `sudo systemctl daemon-reload`<br>
 Verify your setup by running `df -h` output must look like this:<br>
 
-PREPARE THE SOFTWARE STACK
+## PREPARE THE SOFTWARE STACK<br>
 **INSTALL APACHE, PHP AND DEPENDENCIES <br>
 
 - Update the repository
