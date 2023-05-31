@@ -112,7 +112,10 @@ The UUID of the device will be used to update the /etc/fstab file;<br>
 ![1_blkid](https://github.com/ifydevops23/Application_Architecture/assets/126971054/eb5ba889-54e9-4792-9aee-f32ef0f2e618)
 
 `sudo vi /etc/fstab`<br>
-Update /etc/fstab in this format using your own UUID and rememeber to remove the leading and ending quotes.Test the configuration and reload the daemon <br>
+![1_UUID_config](https://github.com/ifydevops23/Application_Architecture/assets/126971054/360d8bdd-3548-49ea-b819-4fb8296ecc40)
+
+Update /etc/fstab in this format using your own UUID and rememeber to remove the leading and ending quotes. <br>
+Test the configuration and reload the daemon <br>
 `sudo mount -a`<br>
 `sudo systemctl daemon-reload`<br>
 Verify your setup by running `df -h` output must look like this:<br>
