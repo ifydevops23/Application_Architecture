@@ -1,24 +1,48 @@
+# WEB SOLUTION WITH WORDPRESS
+## Three-Tier Architecture
+Generally, web, or mobile solutions are implemented based on what is called the Three-tier Architecture.
+Three-tier Architecture is a client-server software architecture pattern that comprise of 3 separate layers.
+
+![111_3-tier_picture](https://github.com/ifydevops23/Application_Architecture/assets/126971054/17f2ac59-6f89-40d9-9b8d-14790f55fbf6)
+
+- Presentation Layer (PL): This is the user interface such as the client server or browser on your laptop.<br>
+- Business Layer (BL): This is the backend program that implements business logic. Application or Webserver <br>
+- Data Access or Management Layer (DAL): This is the layer for computer data storage and data access. Database Server or File System Server such as FTP server, or NFS Server
+
+Also, Partitions and Volumes were created for persistence of website data.<br>
+
+**STEP 0 - PRE-REQUISITES (REQUIREMENTS)**
+- A Laptop or PC to serve as a client<br>
+- An EC2 Linux Server as a web server (This is where you will install WordPress)<br>
+- An EC2 Linux server as a database (DB) server<br>
+
+
 ## LAUNCH AN EC2 INSTANCE THAT WILL SERVE AS “WEB SERVER”.<br>
-*Step 1 — Prepare a Web Server
-Launch an EC2 instance that will serve as "Web Server"*. 
+**STEP 1 — Prepare volumes for the Web Server**
+Launch an EC2 instance that will serve as "Web Server". <br>
+
 Create 3 volumes in the same AZ as your Web Server EC2, each of 10 GiB.<br>
+
 Open up the Linux terminal to begin configurationUse `lsblk` command to inspect what block devices are attached to the server.<br>
+
 Notice names of your newly created devices. All devices in Linux reside in /dev/ directory.<br>
 Inspect it with `ls /dev/` and make sure you see all 3 newly created block devices there – their names will likely be xvdf, xvdh, xvdg.<br>
-Use `df -h` command to see all mounts and free space on your server.Use gdisk utility to create a single partition on each of the 3 disks `sudo gdisk /dev/xvdf`<br>
-Now, your changes has been configured succesfuly, exit out of the gdisk console and do the same for the remaining disks.<br>
+
+Use `df -h` command to see all mounts and free space on your server.Use gdisk utility to create a single partition on each of the 3 disks <br> `sudo gdisk /dev/xvdf`<br>
+
+Now, your changes has been configured successfuly, exit out of the gdisk console and do the same for the remaining disks.<br>
 Use `lsblk` utility to view the newly configured partition on each of the 3 disks. <br>
 Install lvm2 package using `sudo yum install lvm2`. <br>
 Run `sudo lvmdiskscan` command to check for available partitions.<br>
 Use `pvcreate` utility to mark each of 3 disks as physical volumes (PVs) to be used by LVM`sudo pvcreate /dev/xvdf1``sudo pvcreate /dev/xvdg1``sudo pvcreate /dev/xvdh1`<br>
 Verify that your Physical volume has been created successfully by running `sudo pvs`<br>
-Use vgcreate utility to add all 3 PVs to a volume group (VG). Name the VG webdata-vg `sudo vgcreate webdata-vg /dev/xvdh1 /dev/xvdg1 /dev/xvdf1`
+Use vgcreate utility to add all 3 PVs to a volume group (VG). Name the VG webdata-vg `sudo vgcreate webdata-vg /dev/xvdh1 /dev/xvdg1 /dev/xvdf1`<br>
 Verify that your VG has been created successfully by running `sudo vgs`<br>
 Use `lvcreate` utility to create 2 logical volumes. apps-lv (Use half of the PV size), and logs-lv Use the remaining space of the PV size. <br>
 NOTE: apps-lv will be used to store data for the Website while, logs-lv will be used to store data for logs. `sudo lvcreate -n apps-lv -L 14G webdata-vg``sudo lvcreate -n logs-lv -L 14G webdata-vg`<br>
 Verify that your Logical Volume has been created successfully by running `sudo lvs`<br>
 Verify the entire setup`sudo vgdisplay -v #view complete setup - VG, PV, and LV``sudo lsblk`<br>
-Use mkfs.ext4 to format the logical volumes with ext4 filesystem `sudo mkfs -t ext4 /dev/webdata-vg/apps-lv``sudo mkfs -t ext4 /dev/webdata-vg/logs-lv`
+Use mkfs.ext4 to format the logical volumes with ext4 filesystem `sudo mkfs -t ext4 /dev/webdata-vg/apps-lv``sudo mkfs -t ext4 /dev/webdata-vg/logs-lv`<br>
 Create /var/www/html directory to store website files `sudo mkdir -p /var/www/html` Create /home/recovery/logs to store backup of log data sudo `mkdir -p /home/recovery/logs`<br>
 Mount /var/www/html on apps-lv logical volume `sudo mount /dev/webdata-vg/apps-lv /var/www/html/`<br>
 Use rsync utility to back up all the files in the log directory /var/log into /home/recovery/logs (This is required before mounting the file system) <br>
@@ -37,14 +61,14 @@ Update /etc/fstab in this format using your own UUID and rememeber to remove the
 `sudo systemctl daemon-reload`<br>
 Verify your setup by running `df -h` output must look like this:<br>
 
-## PREPARE THE SOFTWARE STACK<br>
-**INSTALL APACHE, PHP AND DEPENDENCIES <br>
+**STEP 3 - PREPARE THE SOFTWARE STACK** <br>
+INSTALL APACHE, PHP AND DEPENDENCIES <br>
 
 - Update the repository
-`sudo yum -y update`
+`sudo yum -y update`<br>
 
 - Install wget, Apache and it’s dependencies <br>
-`sudo yum -y install wget httpd php php-mysqlnd php-fpm php-json`
+`sudo yum -y install wget httpd php php-mysqlnd php-fpm php-json`<br>
 
 
 
@@ -52,26 +76,29 @@ Verify your setup by running `df -h` output must look like this:<br>
 `sudo systemctl start httpd`<br>
 
 
-- To install PHP and its depemdencies
-sudo yum install yum-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
+- To install PHP and its dependencies
+```
+sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+sudo dnf install https://rpms.remirepo.net/enterprise/remi-release-9.rpm
 sudo yum module list php
 sudo yum module reset php
 sudo yum module enable php:remi-7.4
-sudo yum install php php-opcache php-gd php-curl php-mysqlnd
+sudo yum install php php-opcache php-gd php-curl php-mysqlnd  --nobest
 sudo systemctl start php-fpm
 sudo systemctl enable php-fpm
 sudo setsebool -P httpd_execmem 1
-Restart Apache
+```
 
- `sudo systemctl restart httpd`
+- Restart Apache<br>
+`sudo systemctl restart httpd`<br>
 
-**DOWNLOAD WORDPRESS** <br>
+**STEP 4 - DOWNLOAD WORDPRESS** <br>
 
-`sudo mkdir -p /var/www/html`
-- Download wordpress and copy wordpress to var/www/html
+- Download wordpress and copy wordpress to var/www/html<br>
 
 `mkdir wordpress`<br>
 `cd   wordpress`<br>
+
 ```
 sudo wget http://wordpress.org/latest.tar.gz
 sudo tar xzvf latest.tar.gz
@@ -88,17 +115,17 @@ sudo setsebool -P httpd_can_network_connect=1
 sudo setsebool -P httpd_can_network_connect_db 1
 ```
 
-**DB SERVER PREP**<br>
-- Install Mysqld server
+**STEP 4 - DB SERVER PREP**<br>
+- Install Mysqld server <br>
 `sudo yum install mysql-server`
-- Verify that the service is up and running by using 
+- Verify that the service is up and running by using <br>
 
-`sudo systemctl status mysqld`
+`sudo systemctl status mysqld`<br>
 
-- If it is not running, restart the service and enable it so it will be running even after reboot:
+If it is not running, restart the service and enable it so it will be running even after reboot:<br>
 
-`sudo systemctl restart mysqld`
-`sudo systemctl enable mysqld`
+`sudo systemctl restart mysqld`<br>
+`sudo systemctl enable mysqld`<br>
 
 **Configure WordPress to work with DB** <br>
 ```
@@ -111,50 +138,50 @@ exit
 ```
 
 
-##WEBSERVER PREP <br>
+**STEP 5 - WEB SERVER PREP**<br>
 
-- Install MySQL client and test that you can connect from your Web Server to your DB server by using mysql-client <br>
+Install MySQL client and test that you can connect from your Web Server to your DB server by using mysql-client <br>
 `sudo yum install mysql`
 
-- Now edit mysql configuration file by typing <br>
-`sudo nano /etc/my.cnf`<br>
-Add the following at the end of the file.
+Now edit mysql configuration file by typing <br>
+`sudo vi /etc/my.cnf`<br>
+Add the following at the end of the file. <br>
 ```
 [mysqld]
 bind-address=0.0.0.0
 ```
 
-- Now, restart mysqld service using 
+Now, restart mysqld service using <br>
 `sudo systemctl restart mysqld`
-- Change permissions and configuration so Apache could use WordPress: <br>
+Change permissions and configuration so Apache could use WordPress: <br>
 
 `sudo chown -R apache:apache /var/www/html/wordpress` <br>
 
-Enable TCP port 80 in Inbound Rules configuration for your Web Server EC2 (enable from everywhere 0.0.0.0/0 or from your workstation’s IP)
+Enable TCP port 80 in Inbound Rules configuration for your Web Server EC2 (enable from everywhere 0.0.0.0/0 or from your workstation’s IP)<br>
 
 On the web server, edit wordpress configuration file.<br>
 
 `cd /var/www/html/wordpress`<br>
 
- `sudo nano wp-config.php`
+ `sudo vi wp-config.php`
 
-{Insert webserver private IP as db host}
+**_Insert Database PRIVATE IP as DATABASE host_**
 
 
 
-- Disable the default page of apache so that you can view the wordpress on the internet.
+Disable the default page of apache so that you can view the wordpress on the internet.
 ```
 sudo mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/welcome.conf_backup
 ```
 
-- Restart httpd. 
+Restart httpd. <br>
 
 `sudo systemctl restart httpd`
 
 
 
 Verify if you can successfully execute SHOW DATABASES; command and see a list of existing databases. <br>
-`sudo mysql -u admin -p -h <DB-Server-Private-IP-address>
+`sudo mysql -u <user-name> -p -h <DB-Server-Private-IP-address>`
 
 
 
