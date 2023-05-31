@@ -171,13 +171,14 @@ sudo setsebool -P httpd_can_network_connect_db 1
 - Install Mysqld server <br>
 `sudo yum install mysql-server`
 - Verify that the service is up and running by using <br>
-
 `sudo systemctl status mysqld`<br>
 
 If it is not running, restart the service and enable it so it will be running even after reboot:<br>
-
 `sudo systemctl restart mysqld`<br>
 `sudo systemctl enable mysqld`<br>
+
+![1_mysql_restsrt](https://github.com/ifydevops23/Application_Architecture/assets/126971054/7975cbdb-fd73-47b8-bb94-ec5081cdbbbf)
+
 
 **Configure WordPress to work with DB** <br>
 ```
@@ -188,7 +189,6 @@ FLUSH PRIVILEGES;
 SHOW DATABASES;
 exit
 ```
-
 
 **STEP 5 - WEB SERVER PREP**<br>
 
