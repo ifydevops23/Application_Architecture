@@ -119,6 +119,11 @@ Verify your setup by running `df -h` output must look like this:<br>
 
 ![1_after_mounts](https://github.com/ifydevops23/Application_Architecture/assets/126971054/2da633e6-7e6c-49c5-8f05-002a7ca1b648)
 
+**STEP 2 - PREPARE VOLUMES FOR THE DB SERVER** <br>
+- Launch a second RedHat EC2 instance that will have a role – ‘DB Server’ <br>
+- Repeat the same steps as for the Web Server, but instead of apps-lv create db-lv and mount it to /db directory instead of /var/www/html/. <br>
+
+![1_verify_setup_db](https://github.com/ifydevops23/Application_Architecture/assets/126971054/fe60b589-a09d-43b6-94a4-11678ca92229)
 
 **STEP 3 - PREPARE THE SOFTWARE STACK** <br>
 INSTALL APACHE, PHP AND DEPENDENCIES <br>
