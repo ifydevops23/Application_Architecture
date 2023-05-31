@@ -112,6 +112,7 @@ The UUID of the device will be used to update the /etc/fstab file;<br>
 ![1_blkid](https://github.com/ifydevops23/Application_Architecture/assets/126971054/eb5ba889-54e9-4792-9aee-f32ef0f2e618)
 
 `sudo vi /etc/fstab`<br>
+
 ![1_UUID_config](https://github.com/ifydevops23/Application_Architecture/assets/126971054/360d8bdd-3548-49ea-b819-4fb8296ecc40)
 
 Update /etc/fstab in this format using your own UUID and rememeber to remove the leading and ending quotes. <br>
@@ -176,10 +177,13 @@ sudo setsebool -P httpd_can_network_connect_db 1
 ```
 
 **STEP 4 - DB SERVER PREP**<br>
-- Install Mysqld server <br>
+Install Mysqld server <br>
 `sudo yum install mysql-server`
-- Verify that the service is up and running by using <br>
+Verify that the service is up and running by using <br>
 `sudo systemctl status mysqld`<br>
+
+![1_sudo_yum_install_mysql](https://github.com/ifydevops23/Application_Architecture/assets/126971054/417a504e-6b9c-4eb9-b469-55ae076c04c5)
+
 
 If it is not running, restart the service and enable it so it will be running even after reboot:<br>
 `sudo systemctl restart mysqld`<br>
@@ -205,7 +209,6 @@ Install MySQL client and test that you can connect from your Web Server to your 
 
 Now edit mysql configuration file by typing <br>
 `sudo vi /etc/my.cnf`<br>
-
 
 Add the following at the end of the file. <br>
 ```
