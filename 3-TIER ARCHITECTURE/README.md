@@ -233,15 +233,18 @@ Restart httpd. <br>
 Verify if you can successfully execute SHOW DATABASES; command and see a list of existing databases. <br>
 `sudo mysql -u <user-name> -p -h <DB-Server-Private-IP-address>`
 
-![login_from_webserver](https://github.com/ifydevops23/Application_Architecture/assets/126971054/be2eac3a-c56b-4eb6-aa10-d362f882888a)
 
 Try to access from your browser the link to your WordPress http://<Webserver-Public-Ip>/wordpress/
+ 
+![1_welcome_to_wordpress](https://github.com/ifydevops23/Application_Architecture/assets/126971054/5758f8be-1d36-4885-be75-9579d68a749b)
 
-![3333_welcome_to_wordpress](https://github.com/ifydevops23/Application_Architecture/assets/126971054/afe61f95-c9f6-4088-baf0-669afd9e2f5e)
+Fill in your credentials to setup your account for your wordpress website. If you see this message – it means your WordPress has successfully connected to your remote MySQL database.<br>
 
-Fill in your credentials to setup your account for your wordpress website. If you see this message – it means your WordPress has successfully connected to your remote MySQL database.
-Log in with your username and password.
-After Succesful Login;
+Log in with your username and password.<br>
+ 
+![login_from_webserver](https://github.com/ifydevops23/Application_Architecture/assets/126971054/be2eac3a-c56b-4eb6-aa10-d362f882888a)
+
+After Succesful Login;<br>
 
 ![333_wordpress_latest](https://github.com/ifydevops23/Application_Architecture/assets/126971054/deb18487-9cbc-4617-b680-b3a1abe30df6)
 
