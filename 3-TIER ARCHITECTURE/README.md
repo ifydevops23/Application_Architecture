@@ -126,9 +126,14 @@ Verify your setup by running `df -h` output must look like this:<br>
 
 **STEP 2 - PREPARE VOLUMES FOR THE DB SERVER** <br>
 - Launch a second RedHat EC2 instance that will have a role – ‘DB Server’ <br>
-- Repeat the same steps as for the Web Server, but instead of apps-lv create db-lv and mount it to /db directory instead of /var/www/html/. <br>
+- Create single partition in the disks, create physical volumes and logical volumes.
 
 ![1_verify_setup_db](https://github.com/ifydevops23/Application_Architecture/assets/126971054/fe60b589-a09d-43b6-94a4-11678ca92229)
+
+- Create db-lv and Mount it to /db directory. <br>
+
+![1_mounts_for_db](https://github.com/ifydevops23/Application_Architecture/assets/126971054/894382ad-9b07-4b5a-87ea-4de2f5477384)
+
 
 **STEP 3 - PREPARE THE SOFTWARE STACK** <br>
 INSTALL APACHE, PHP AND DEPENDENCIES <br>
