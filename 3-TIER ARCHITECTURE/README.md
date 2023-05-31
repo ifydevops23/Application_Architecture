@@ -51,7 +51,9 @@ Run `sudo lvmdiskscan` command to check for available partitions.<br>
 
 
 Use `pvcreate` utility to mark each of 3 disks as physical volumes (PVs) to be used by LVM <br>
-`sudo pvcreate /dev/xvdf1``sudo pvcreate /dev/xvdg1``sudo pvcreate /dev/xvdh1`<br>
+`sudo pvcreate /dev/xvdf1`<br>
+`sudo pvcreate /dev/xvdg1`<br>
+`sudo pvcreate /dev/xvdh1`<br>
 
 ![1_pvs_create](https://github.com/ifydevops23/Application_Architecture/assets/126971054/5c87475c-dddc-4fc0-a666-e5f0ae88b483)
 
