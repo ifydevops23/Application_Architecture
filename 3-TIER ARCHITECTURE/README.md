@@ -83,7 +83,8 @@ Verify the entire setup <br>
 
 
 Use mkfs.ext4 to format the logical volumes with ext4 filesystem <br>
-`sudo mkfs -t ext4 /dev/webdata-vg/apps-lv``sudo mkfs -t ext4 /dev/webdata-vg/logs-lv`<br>
+`sudo mkfs -t ext4 /dev/webdata-vg/apps-lv`<br>
+`sudo mkfs -t ext4 /dev/webdata-vg/logs-lv`<br>
 
 ![1_mks](https://github.com/ifydevops23/Application_Architecture/assets/126971054/f20a0b48-0d4b-4a4f-aab6-4a799f866da9)
 
