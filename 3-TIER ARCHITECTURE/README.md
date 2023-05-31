@@ -36,7 +36,8 @@ Inspect it with `ls /dev/` and make sure you see all 3 newly created block devic
 
 Use `df -h` command to see all mounts and free space on your server. <br>
 
-Use gdisk utility to create a single partition on each of the 3 disks <br> `sudo gdisk /dev/xvdf`<br>
+Use gdisk utility to create a single partition on each of the 3 disks <br>
+`sudo gdisk /dev/xvdf`<br>
 
 ![1_partionn_single](https://github.com/ifydevops23/Application_Architecture/assets/126971054/91db98d3-c6b6-4527-8934-27de85126365)
 
@@ -73,7 +74,7 @@ NOTE: apps-lv will be used to store data for the Website while, logs-lv will be 
 `sudo lvcreate -n logs-lv -L 14G webdata-vg`<br>
 Verify that your Logical Volume has been created successfully by running `sudo lvs`<br>
 
-![1_sudo_lvs](https://github.com/ifydevops23/Application_Architecture/assets/126971054/da587f34-5313-4599-ad49-23a311089533)
+![1_logical_volumes](https://github.com/ifydevops23/Application_Architecture/assets/126971054/ae2363aa-6f9a-496e-8a3a-50a2f311caff)
 
 Verify the entire setup <br>
 `sudo vgdisplay -v #view complete setup - VG, PV, and LV``sudo lsblk`<br>
