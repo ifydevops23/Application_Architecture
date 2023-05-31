@@ -69,7 +69,8 @@ Verify that your VG has been created successfully by running <br>
 
 Use `lvcreate` utility to create 2 logical volumes. apps-lv (Use half of the PV size), and logs-lv <br> Use the remaining space of the PV size. <br>
 NOTE: apps-lv will be used to store data for the Website while, logs-lv will be used to store data for logs. <br>
-`sudo lvcreate -n apps-lv -L 14G webdata-vg``sudo lvcreate -n logs-lv -L 14G webdata-vg`<br>
+`sudo lvcreate -n apps-lv -L 14G webdata-vg`<br>
+`sudo lvcreate -n logs-lv -L 14G webdata-vg`<br>
 Verify that your Logical Volume has been created successfully by running `sudo lvs`<br>
 
 ![1_sudo_lvs](https://github.com/ifydevops23/Application_Architecture/assets/126971054/da587f34-5313-4599-ad49-23a311089533)
@@ -108,7 +109,6 @@ The UUID of the device will be used to update the /etc/fstab file;<br>
 `sudo blkid`<br>
 
 ![1_blkid](https://github.com/ifydevops23/Application_Architecture/assets/126971054/eb5ba889-54e9-4792-9aee-f32ef0f2e618)
-
 
 `sudo vi /etc/fstab`<br>
 Update /etc/fstab in this format using your own UUID and rememeber to remove the leading and ending quotes.Test the configuration and reload the daemon <br>
