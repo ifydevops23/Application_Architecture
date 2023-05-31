@@ -245,7 +245,7 @@ Fill in your credentials to setup your account for your wordpress website. If yo
 
 Log in with your username and password.<br>
  
-![login_from_webserver](https://github.com/ifydevops23/Application_Architecture/assets/126971054/be2eac3a-c56b-4eb6-aa10-d362f882888a)
+![3333_welcome_to_wordpress](https://github.com/ifydevops23/Application_Architecture/assets/126971054/a773985a-b70c-483a-9463-053ff117d08e)
 
 After Succesful Login;<br>
 
