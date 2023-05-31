@@ -17,7 +17,7 @@ Also, Partitions and Volumes were created for persistence of website data.<br>
 - An EC2 Linux server as a database (DB) server<br>
 
 ## LAUNCH AN EC2 INSTANCE THAT WILL SERVE AS “WEB SERVER”.<br>
-**STEP 1 — Prepare volumes for the Web Server**
+**STEP 1 — Prepare volumes for the Web Server** <br>
 Launch an EC2 instance that will serve as "Web Server". <br>
 
 ![11_created_virtual_machines_with_ip](https://github.com/ifydevops23/Application_Architecture/assets/126971054/d1a2c2f5-2e00-464a-a195-4e33a9eed833)
